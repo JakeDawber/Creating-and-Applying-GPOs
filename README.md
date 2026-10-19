@@ -30,6 +30,11 @@ Reversible password encryption: Disabled
 
 These settings establish domain-wide password requirements for domain accounts, helping enforce stronger password practices.
 
+
+<img src="Screenshots/Password policy.png"/>
+
+
+
 <b>2. Configure the Domain Account Lockout Policy</b>
 
 I configured the account lockout settings in the Default Domain Policy, under:
@@ -44,6 +49,10 @@ Account lockout duration: 30 minutes
 
 Reset account lockout counter after: 30 minutes
 
+
+<img src="Screenshots/Password lock out.png"/>
+
+
 This configuration demonstrates how an Active Directory domain can respond to repeated failed authentication attempts and reduce the risk of password-guessing attacks.
 
 Password and account lockout policies are configured at the domain level in this lab rather than in individual workstation GPOs.
@@ -52,31 +61,47 @@ Password and account lockout policies are configured at the domain level in this
 
 I created separate computer-focused GPOs to demonstrate how administrators can centrally manage workstation security settings.
 
-Disable USB Storage
+<b>Disable USB Storage</b>
 
 Configured the policy:
 
 Computer Configuration → Policies → Administrative Templates → System → Removable Storage Access → All Removable Storage classes: Deny all access
 
+
+<img src="Screenshots/Disable USB storage.png"/>
+
+
 Enabled this setting to demonstrate how an organisation can restrict access to removable storage devices on managed computers.
 
-Enable Audit Logs
+<b>Enable Audit Logs</b>
 
 Configured auditing through:
 
 Computer Configuration → Policies → Windows Settings → Security Settings → Local Policies → Audit Policy
 
+
+<img src="Screenshots/Audit logs.png"/>
+
+
 Enabled auditing for system events, with both successful and failed events selected. This provides a basis for investigating system activity and troubleshooting security-related issues.
 
-Screen Lockout
+<b>Screen Lockout</b>
 
 Configured the interactive logon machine inactivity limit to 600 seconds (10 minutes).
 
+
+<img src="Screenshots/Screen lock out.png"/>
+
+
 This demonstrates how a computer-level security setting can automatically lock an inactive workstation to reduce the risk of unauthorised access.
 
-Limit Software Installs
+<b>Limit Software Installs</b>
 
 Enabled the Prohibit User Installs policy under Windows Installer.
+
+
+<img src="Screenshots/User installs.png"/>
+
 
 This demonstrates a way to restrict certain per-user software installations. This policy alone does not prevent every method of installing software, but it provides an example of centrally managed application controls.
 
@@ -86,19 +111,27 @@ These GPOs were designed to apply to computers within the relevant organisationa
 
 I also created separate user-focused policies to restrict specific actions within the Windows user environment.
 
-Control Panel Restrictions
+<b>Control Panel Restrictions</b>
 
 Configured the policy:
 
 User Configuration → Policies → Administrative Templates → Control Panel → Prohibit access to Control Panel and PC settings
 
+
+<img src="Screenshots/Control panel restriction GPO.png"/>
+
+
 Enabled the setting to prevent users from opening Control Panel and the Windows Settings app.
 
-Registry Restrictions
+<b>Registry Restrictions</b>
 
 Configured the policy:
 
 User Configuration → Policies → Administrative Templates → System → Prevent access to registry editing tools
+
+
+<img src="Screenshots/Registry restriction.png"/>
+
 
 Enabled this setting to restrict access to Registry Editor through the standard Windows registry editing tools.
 
@@ -126,7 +159,7 @@ Ran the following command in Command Prompt: gpupdate /force. This requests an i
 
 I then used: gpresult /r to review the resulting policy information.
 
-User Policy Verification
+<b>User Policy Verification</b>
 
 The gpresult output under USER SETTINGS showed the following applied GPOs:
 
@@ -134,9 +167,13 @@ Workstation - Control Panel Restrictions
 
 Workstation - Registry Restrictions
 
+
+<img src="Screenshots/Applied user policies.png"/>
+
+
 This confirms that the two user-focused GPOs were listed as applied for John Smith.
 
-Computer Policy Verification
+<b>Computer Policy Verification</b>
 
 The gpresult output under COMPUTER SETTINGS showed the following applied GPOs:
 
@@ -149,6 +186,10 @@ Workstation - Screen lockout
 Workstation - Limit Software Installs
 
 Default Domain Policy
+
+
+<img src="Screenshots/Applied computer policies.png"/>
+
 
 This confirms that the workstation received the listed computer-focused GPOs and the Default Domain Policy.
 
@@ -172,4 +213,3 @@ Basic auditing and workstation restrictions
 
 Group Policy troubleshooting and verification using gpupdate and gpresult
 
-The lab demonstrates how Group Policy can be used to manage security and configuration centrally across a Windows domain.
